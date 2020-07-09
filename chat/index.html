@@ -1,0 +1,30 @@
+<html lang="en-US">
+<head>
+<script src="chat.js"></script>
+<script>
+function htmlify(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+var mychat = new Chat('ExperimentalCyborg')  // pass the twitch channel. Can later be changed with Chat.channel = ''
+
+mychat.onMessage = (message) => {
+	document.body.innerHTML = message.time + " | " + message.user + " : " + htmlify(message.message) + "<br>" + document.body.innerHTML;
+};
+
+mychat.onStateChange = (state) => {
+	console.log(state);
+};
+
+mychat.onError = (error) => {
+	console.error(error);
+}
+</script>
+</head>
+<body>
+<script>
+mychat.connect(); // Connect to the chat and start calling callbacks
+//mychat.disconnect(); // guess what this does
+</script>
+</body>
+</html>
